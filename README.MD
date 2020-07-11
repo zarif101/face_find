@@ -1,0 +1,30 @@
+# Face Find
+Realtime facial recognition using a Siamese Convolutional Neural Network!
+
+# How it Works
+Learn about how a Siamese CNN works and how it is implemented here in real time using OpenCV, here: MEDIUM ARTICLE CURRENTLY BEING WRITTEN
+
+# Default Usage
+- To use default settings/parameters and CNN, simply run 'train_model.py' to generate the trained model, and then 'model_evaluate.py' if you want to see the results on the test set.
+- To run in real time using your webcam, run 'app/main.py'
+- To add known/recognizable people, follow the given example to create folders in 'app/people' (photos should be from the front, and background should be relatively empty - solid color works best). It is best to have 2-3 images of every person.
+
+# Custom Usage
+- Pre-created models are in 'models.py' - you can use the same format in there, to add your own custom models
+- To use a different model, change 'model = models.get_model_1(input_shape)' in 'train_model.py', using the name of the function from 'models.py'
+- If you have multiple models created, pay attention to the model/named being loaded in 'app/main.py','train_model.py', and 'model_evaluate.py'
+- Look in 'train_model.py' to customize model training parameters such as learning rate, optimizer, epochs, etc
+-  To add known/recognizable people, follow the given example to create folders in 'app/people' (photos should be from the front, and background should be relatively empty - solid color works best). It is best to have 2-3 images of every person.
+
+# Miscellaneous Notes
+- Currently only supports images with 1 person
+- -Currently only supports images where person is direclty facing the camera - a frontal view of their face - because faces are being detected and extracted using OpenCV frontal-face HaarCascade
+- There is currently no command line arguement parser implemented, so the changing values or parameters such as model optimizer must be done inside the '.py' files
+- Currently no requirements.txt file
+- As noted in import comments, the code uses a Keras backend called PlaidML, since I use an AMD GPU and cannot run Tensorflow. Unless you use PlaidML as well (you will know for sure if you do), get rid of the PlaidMl imports, and import Tensorflow + Keras as you normally would
+- Currently working on comprehensive Medium article
+- -Currently developing website to implement Siamese CNN for face recognition on your own images
+- Both of the above will be added here once available
+- Dataset being used: Labelled Faces in the Wild (LFW) - - http://vis-www.cs.umass.edu/lfw/
+- Feel free to experiment and create better models! The default ones provide an accuracy around 65% which isn't great, but still works well since in realtime all images of a person must be declared similar (this will be explained more clearly in the Medium article). I was limited by my GPU memory, but I'm currently working on ways to train better ones using my existing setup
+- If you have any comments or questions, please create an issue or shoot me an email at zarif.azher@gmail.com
