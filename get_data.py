@@ -2,7 +2,14 @@ import numpy as np
 import pandas as pd
 import cv2
 import os
+import math
 from sklearn.utils import shuffle
+#SINCE I USE AN AMDGPU I CANT USE TENSORFLOW BACKEND -- IF YOU USE TENSORFLOW, JUST IMPORT KERAS THAT WAY INSTEAD
+import plaidml.keras
+plaidml.keras.install_backend()
+#-----
+from keras.utils import Sequence
+
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 class dataLoader:
@@ -115,8 +122,37 @@ class dataLoader:
         X_train_shuffled,y_train_shuffled = shuffle(X_train,y_train,random_state=5)
         X_test_shuffled,y_test_shuffled = shuffle(X_test,y_test,random_state=5)
 
-        #X_val = X_train_shuffled[:200,:]
-        #y_val = y_train_shuffled[:200,:]
-        #USING VALIDATION_SPLIT PARAMETER INSTEAD
+        X_val = X_train_shuffled[:200,:]
+        y_val = y_train_shuffled[:200,:]
 
-        return X_train_shuffled,X_test_shuffled,y_train_shuffled,y_test_shuffled
+        X_train_shuffled = X_train_shuffled[201:,:]
+        y_train_shuffled = y_train_shuffled[201:,:]
+
+        self.X_train_shuffled = X_train_shuffled
+        self.X_test_shuffled = X_test_shuffled
+        self.X_val = X_val
+        self.y_train_shuffled = y_train_shuffled
+        self.y_val = y_val
+        self.y_test_shuffled = y_test_shuffled
+
+        return X_train_shuffled,X_val,X_test_shuffled,y_train_shuffled,y_val,y_test_shuffled
+
+class image_generator(Sequence):
+    def __init__(self,X_set,y_set,batch_size):
+        self.X_set = X_set
+        self.y_set = y_set
+        self.batch_size = batch_size
+
+    def __len__(self):
+        return math.ceil(len(self.X_set) / self.batch_size)
+
+    def __getitem__(self,idx):
+        batch_x_1 = self.X_set[idx * self.batch_size:(idx + 1) *
+        self.batch_size,0,:]
+        batch_x_2 = self.X_set[idx * self.batch_size:(idx + 1) *
+        self.batch_size,1,:]
+
+        batch_y = self.y_set[idx * self.batch_size:(idx + 1) *
+        self.batch_size,:]
+
+        return [batch_x_1,batch_x_2],batch_y
