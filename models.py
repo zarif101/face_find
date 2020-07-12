@@ -64,6 +64,7 @@ def get_model_2(input_shape):
     model.add(Dense(64, activation='relu'))
     model.add(Dense(64, activation='sigmoid'))
     # Generate the encodings (feature vectors) for the two images
+    
     encoded_l = model(left_input)
     encoded_r = model(right_input)
 
