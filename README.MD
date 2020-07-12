@@ -19,6 +19,8 @@ Learn about how a Siamese CNN works and how it is implemented here in real time 
 # Miscellaneous Notes
 - Look at 'best_results.MD' for best results
 - Currently only supports images with 1 person
+- Glasses or other accessories may throw off the model
+- Model tends to underperform if person is not directly facing camera
 - -Currently only supports images where person is direclty facing the camera - a frontal view of their face - because faces are being detected and extracted using OpenCV frontal-face HaarCascade
 - There is currently no command line arguement parser implemented, so the changing of values or parameters such as model optimizer must be done inside the '.py' files
 - Currently no requirements.txt file
