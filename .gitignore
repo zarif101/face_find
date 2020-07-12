@@ -3,3 +3,6 @@ __pycache__/
 face_model_v2.h5
 face_model.h5
 model_eval_test.ipynb
+face_model_v3.h5
+face_model_v4.h5
+face_model_v5.h5
