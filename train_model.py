@@ -22,21 +22,32 @@ def main(input_shape,model_name,epochs):
     different_test = pd.read_csv('data/different_pairs_test.csv')
 
     data_loader = get_data.dataLoader(same_train,same_test,different_train,different_test)
-    X_train,X_test,y_train,y_test = data_loader.load_data()
+    X_train,X_val,X_test,y_train,y_val,y_test = data_loader.load_data()
+    #generator specific
+    train_gen = get_data.image_generator(X_train,y_train,32)
+    val_gen = get_data.image_generator(X_val,y_val,200)
+
     print(X_train.shape)
     print(X_test.shape)
     print(y_train.shape)
     print(y_test.shape)
-    model = models.get_model_1(input_shape)
+    print(X_val.shape)
+    print(y_val.shape)
+    #Load model
+    model = models.get_model_2(input_shape)
     model.summary()
-    optimizer = Adam(lr = 0.00005)
-    model.compile(optimizer=optimizer,loss='binary_crossentropy',metrics=['accuracy'])
+
+    model.compile(optimizer=Adam(.00008),loss='binary_crossentropy',metrics=['accuracy'])
 
     early_stopping = EarlyStopping(monitor='val_loss', patience=5)
 
-    history = model.fit([X_train[:,0],X_train[:,1]],y_train,epochs=int(epochs),validation_split=0.15,
+    #history = model.fit([X_train[:,0],X_train[:,1]],y_train,epochs=int(epochs),validation_split=0.15,
     #callbacks=[early_stopping]
-    )
+    #)
+
+    #Fit with generator instead
+    history = model.fit_generator(train_gen,epochs=int(epochs),validation_data=val_gen)
+    
     model.save(model_name)
     print('saved!')
     #PLOT loss
@@ -46,4 +57,4 @@ def main(input_shape,model_name,epochs):
     sns.lineplot(x=[i for i in range(1,len(history.history['val_loss'])+1)],y=history.history['val_loss'])
     plt.show()
 
-main((128,128,3),'face_model_v2.h5',epochs=20)
+main((128,128,3),'face_model_v5.h5',epochs=37)
