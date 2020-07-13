@@ -21,7 +21,7 @@ Learn about how a Siamese CNN works and how it is implemented here in real time 
 - Currently only supports images with 1 person
 - Glasses or other accessories may throw off the model
 - Model tends to underperform if person is not directly facing camera
-- -Currently only supports images where person is direclty facing the camera - a frontal view of their face - because faces are being detected and extracted using OpenCV frontal-face HaarCascade
+- Currently only supports images where person is direclty facing the camera - a frontal view of their face - because faces are being detected and extracted using OpenCV frontal-face HaarCascade
 - There is currently no command line arguement parser implemented, so the changing of values or parameters such as model optimizer must be done inside the '.py' files
 - Currently no requirements.txt file
 - As noted in import comments, the code uses a Keras backend called PlaidML, since I use an AMD GPU and cannot run Tensorflow. Unless you use PlaidML as well (you will know for sure if you do), get rid of the PlaidMl imports, and import Tensorflow + Keras as you normally would
@@ -29,5 +29,5 @@ Learn about how a Siamese CNN works and how it is implemented here in real time 
 - -Currently developing website to implement Siamese CNN for face recognition on your own images
 - Both of the above will be added here once available
 - Dataset being used: Labelled Faces in the Wild (LFW) - - http://vis-www.cs.umass.edu/lfw/
-- Feel free to experiment and create better models! The default ones provide an accuracy around 65% which isn't great, but still works decently well since in realtime all images of a person must be declared similar (this will be explained more clearly in the Medium article). I was limited by my GPU memory, but I'm currently working on ways to train better ones using my existing setup
+- Feel free to experiment and create better models!
 - If you have any comments or questions, please create an issue or shoot me an email at zarif.azher@gmail.com
