@@ -5,16 +5,28 @@ Realtime facial recognition using a Siamese Convolutional Neural Network!
 Learn about how a Siamese CNN works and how it is implemented here in real time using OpenCV, here: MEDIUM ARTICLE CURRENTLY BEING WRITTEN
 
 # Default Usage
-- To use default settings/parameters and CNN, simply run 'train_model.py' to generate the trained model, and then 'model_evaluate.py' if you want to see the results on the test set.
+- To use default settings/parameters and CNN, simply run 'train_model.py' with to generate the trained model, and then 'model_evaluate.py' if you want to see the results on the test set.
 - To run in real time using your webcam, run 'app/main.py'
 - To add known/recognizable people, follow the given example to create folders in 'app/people' (photos should be from the front, and background should be relatively empty - solid color works best). It is best to have 2-3 images of every person.
 
 # Custom Usage
 - Pre-created models are in 'models.py' - you can use the same format in there, to add your own custom models
 - To use a different model, change 'model = models.get_model_1(input_shape)' in 'train_model.py', using the name of the function from 'models.py'
-- If you have multiple models created, pay attention to the model/named being loaded in 'app/main.py','train_model.py', and 'model_evaluate.py'
-- Look in 'train_model.py' to customize model training parameters such as learning rate, optimizer, epochs, etc
 -  To add known/recognizable people, follow the given example to create folders in 'app/people' (photos should be from the front, and background should be relatively empty - solid color works best). It is best to have 2-3 images of every person.
+
+#Running Files
+Running 'train.py' (all params are optional, as there are defaults)
+```shell
+python3 train.py --epochs NUM_EPOCHS --learning_rate LEARNING_RATE --model_save_name NAME_TO_SAVE.H5
+```
+Running 'model_evaluate.py' (all params are optional, as there are defaults)
+```shell
+python3 model_evaluate.py --model_name MODEL_NAME.H5
+```
+Running 'app/main.py' (all params are optional, as there are defaults)
+```shell
+python3 app/main.py --model_name MODEL_NAME.H5
+```
 
 # Miscellaneous Notes
 - Look at 'best_results.MD' for best results
