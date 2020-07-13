@@ -8,12 +8,18 @@ import os
 from cv2.data import haarcascades
 from keras.models import load_model
 import time
+import argparse
 
-model = load_model('../face_model.h5')
+
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 people = os.listdir('people')
 #print(people)
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--model_name',default='face_model.h5')
+args = parser.parse_args()
+name = '../'+str(args.model_name)
+model = load_model(name)
 def prep(pic):
     global face_cascade
     gray = cv2.cvtColor(pic,cv2.COLOR_BGR2GRAY)
@@ -46,7 +52,7 @@ def check_and_find(prepped_ref_image):
             face,dumdum = prep(img)
             pred = model.predict([face,prepped_ref_image])
             #print(pred[0][0])
-            if pred[0][0] > 0.8:
+            if pred[0][0] > 0.5:
                 #print('MATCH FOUND'+person)
                 matches.append(1)
         if len(matches) == len(pics):

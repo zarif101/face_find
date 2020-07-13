@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import get_data
 import seaborn as sns
+import argparse
 import matplotlib.pyplot as plt
 import get_data
 from sklearn.metrics import accuracy_score
@@ -10,6 +11,10 @@ import plaidml.keras
 plaidml.keras.install_backend()
 #-----
 from keras.models import load_model
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--model_name',default='face_model.h5')
+args = parser.parse_args()
 
 def main(model_name):
     model = load_model(model_name)
@@ -20,7 +25,7 @@ def main(model_name):
     different_test = pd.read_csv('data/different_pairs_test.csv')
 
     data_loader = get_data.dataLoader(same_train,same_test,different_train,different_test)
-    X_train,X_test,y_train,y_test = data_loader.load_data()
+    X_train,X_val,X_test,y_train,y_val,y_test = data_loader.load_data()
 
     threshold = 0.65
 
@@ -41,4 +46,4 @@ def main(model_name):
 
     print('ACCURACY IS {}%'.format(str(accuracy)))
 
-main('face_model.h5')
+main(str(args.model_name))

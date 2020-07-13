@@ -4,6 +4,7 @@ import get_data
 import seaborn as sns
 import matplotlib.pyplot as plt
 import models
+import argparse
 #SINCE I USE AN AMDGPU I CANT USE TENSORFLOW BACKEND -- IF YOU USE TENSORFLOW, JUST IMPORT KERAS THAT WAY INSTEAD
 import plaidml.keras
 plaidml.keras.install_backend()
@@ -14,6 +15,15 @@ from keras.layers import Lambda,Conv2D,Dense,Input,Flatten,MaxPool2D
 from keras.optimizers import Adam
 from keras.callbacks import EarlyStopping
 
+parser = argparse.ArgumentParser()
+parser.add_argument('--epochs',default=37)
+parser.add_argument('--learning_rate',default='.0001')
+parser.add_argument('--model_save_name',default='face_model.h5')
+args = parser.parse_args()
+
+num_epochs = int(args.epochs)
+learning_rate = float(args.learning_rate)
+model_name = args.model_save_name
 
 def main(input_shape,model_name,epochs):
     same_train = pd.read_csv('data/same_pairs_train.csv')
@@ -34,10 +44,11 @@ def main(input_shape,model_name,epochs):
     print(X_val.shape)
     print(y_val.shape)
     #Load model
+
     model = models.get_model_2(input_shape)
     model.summary()
 
-    model.compile(optimizer=Adam(.0001),loss='binary_crossentropy',metrics=['accuracy'])
+    model.compile(optimizer=Adam(learning_rate),loss='binary_crossentropy',metrics=['accuracy'])
 
     early_stopping = EarlyStopping(monitor='val_loss', patience=5)
 
@@ -57,4 +68,4 @@ def main(input_shape,model_name,epochs):
     sns.lineplot(x=[i for i in range(1,len(history.history['val_loss'])+1)],y=history.history['val_loss'])
     plt.show()
 
-main((128,128,3),'face_model.h5',epochs=37)
+main((128,128,3),model_name,epochs=num_epochs)
