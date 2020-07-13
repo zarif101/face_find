@@ -37,7 +37,7 @@ def main(input_shape,model_name,epochs):
     model = models.get_model_2(input_shape)
     model.summary()
 
-    model.compile(optimizer=Adam(.00008),loss='binary_crossentropy',metrics=['accuracy'])
+    model.compile(optimizer=Adam(.0001),loss='binary_crossentropy',metrics=['accuracy'])
 
     early_stopping = EarlyStopping(monitor='val_loss', patience=5)
 
@@ -47,7 +47,7 @@ def main(input_shape,model_name,epochs):
 
     #Fit with generator instead
     history = model.fit_generator(train_gen,epochs=int(epochs),validation_data=val_gen)
-    
+
     model.save(model_name)
     print('saved!')
     #PLOT loss
@@ -57,4 +57,4 @@ def main(input_shape,model_name,epochs):
     sns.lineplot(x=[i for i in range(1,len(history.history['val_loss'])+1)],y=history.history['val_loss'])
     plt.show()
 
-main((128,128,3),'face_model_v5.h5',epochs=37)
+main((128,128,3),'face_model.h5',epochs=37)
