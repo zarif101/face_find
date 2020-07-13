@@ -14,7 +14,7 @@ Learn about how a Siamese CNN works and how it is implemented here in real time 
 - To use a different model, change 'model = models.get_model_1(input_shape)' in 'train_model.py', using the name of the function from 'models.py'
 -  To add known/recognizable people, follow the given example to create folders in 'app/people' (photos should be from the front, and background should be relatively empty - solid color works best). It is best to have 2-3 images of every person.
 
-#Running Files
+# Running Files
 Running 'train.py' (all params are optional, as there are defaults)
 ```shell
 python3 train.py --epochs NUM_EPOCHS --learning_rate LEARNING_RATE --model_save_name NAME_TO_SAVE.H5
