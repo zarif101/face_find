@@ -2,7 +2,7 @@
 Realtime facial recognition using a Siamese Convolutional Neural Network!
 
 # How it Works
-Learn about how a Siamese CNN works and how it is implemented here in real time using OpenCV, here: MEDIUM ARTICLE CURRENTLY BEING WRITTEN
+Learn about how a Siamese CNN works and how I implemented it in this project, here: https://medium.com/@zarif.azher/real-time-face-recognition-with-siamese-convolutional-neural-networks-54275ecd7322
 
 # Default Usage
 - To use default settings/parameters and CNN, simply run 'train_model.py' with to generate the trained model, and then 'model_evaluate.py' if you want to see the results on the test set.
@@ -37,7 +37,6 @@ python3 app/main.py --model_name MODEL_NAME.H5
 - There is currently no command line arguement parser implemented, so the changing of values or parameters such as model optimizer must be done inside the '.py' files
 - Currently no requirements.txt file
 - As noted in import comments, the code uses a Keras backend called PlaidML, since I use an AMD GPU and cannot run Tensorflow. Unless you use PlaidML as well (you will know for sure if you do), get rid of the PlaidMl imports, and import Tensorflow + Keras as you normally would
-- Currently working on comprehensive Medium article
 - -Currently developing website to implement Siamese CNN for face recognition on your own images
 - Both of the above will be added here once available
 - Dataset being used: Labelled Faces in the Wild (LFW) - - http://vis-www.cs.umass.edu/lfw/
